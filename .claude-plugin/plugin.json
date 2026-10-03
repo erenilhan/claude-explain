@@ -1,0 +1,11 @@
+{
+  "name": "explain",
+  "version": "0.1.0",
+  "description": "Explain how part of your codebase works as a visual HTML page or diagram, grounded in the project's own code, with every claim linked to file:line.",
+  "author": {
+    "name": "erenilhan"
+  },
+  "repository": "https://github.com/erenilhan/claude-explain",
+  "license": "MIT",
+  "keywords": ["explain", "diagram", "html", "documentation", "onboarding"]
+}

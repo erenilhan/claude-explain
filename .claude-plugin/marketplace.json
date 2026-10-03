@@ -1,0 +1,24 @@
+{
+  "name": "claude-explain",
+  "owner": {
+    "name": "erenilhan"
+  },
+  "metadata": {
+    "description": "/explain: code explanations as visual pages",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "explain",
+      "source": "./",
+      "description": "Explain how part of your codebase works as a visual HTML page or diagram, grounded in the project's own code, with every claim linked to file:line.",
+      "version": "0.1.0",
+      "author": {
+        "name": "erenilhan"
+      },
+      "license": "MIT",
+      "keywords": ["explain", "diagram", "html", "documentation", "onboarding"],
+      "category": "productivity"
+    }
+  ]
+}
