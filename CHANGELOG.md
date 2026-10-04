@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-04 (0.2.1)
+
+### Changed
+- README "Sources" now covers 229 replies instead of the first 34: all replies X shows, those it marks as probable spam, and extra ones from the fxtwitter API.
+
+### Added
+- "Prior art" section listing similar tools found in the replies (`/explain-better`, `/show-me`, `/explain-to-me`, lucidiff), so readers can compare before installing.
+- "Trade-offs" section with the objections raised in the replies.
+
 ## 2026-10-03 (0.2.0)
 
 ### Changed
