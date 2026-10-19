@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-19
+
+### Changed
+- README is shorter: what it does, install, usage, video. The research behind the design moved to `docs/SOURCES.md` and the Turkish text to `README.tr.md`.
+
 ## 2026-10-11 (0.3.0)
 
 ### Added
