@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-11 (0.3.0)
+
+### Added
+- `video` mode: a narrated explainer video rendered locally with the showtime plugin, built on the same code reading and claims as a page.
+- Turkish narration with Antalia-2 Mini, because showtime's built-in voices have no Turkish. The skill respells English and brand names before synthesis and credits the voice as synthetic.
+
 ## 2026-10-04 (0.2.1)
 
 ### Changed

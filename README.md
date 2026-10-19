@@ -30,6 +30,7 @@ Without the plugin system: copy `skills/explain/SKILL.md` to `~/.claude/skills/e
 /explain <topic>              # default: page
 /explain page <topic>         # interactive HTML page
 /explain diagram <topic>      # one focused diagram
+/explain video <topic>        # narrated explainer video
 ```
 
 Example: `/explain how a bug report travels from the widget to GitHub`
@@ -38,7 +39,11 @@ When installed as a plugin, the command may also appear as `/explain:explain`. A
 
 ## Video
 
-There is no video mode yet. For narrated explainer videos, install [showtime](https://github.com/FavioVazquez/showtime) and ask Claude for a video directly. It renders locally and needs no API keys.
+`/explain video <topic>` makes a 60–90 s narrated video from the same code reading. It needs the [showtime](https://github.com/FavioVazquez/showtime) plugin, which renders locally and needs no API keys. Without showtime, the skill offers a page instead.
+
+showtime's built-in voices have no Turkish. For Turkish narration the skill uses [Antalia-2 Mini](https://huggingface.co/cloud0day3/antalia-mini) (Apache-2.0, 7.6M parameters, runs on CPU, one synthetic male voice): `uv tool install "antalia-mini[hub]"`. The video credits the voice as synthetic, as the model's licence asks.
+
+A video cannot be scanned, so the skill also gives you its claims file to check what the video says.
 
 ## Sources
 
@@ -63,7 +68,7 @@ These do the same or a similar job. We found them after building `/explain`. Loo
 | [@Yrishavjs, 2026-10-03](https://x.com/Yrishavjs/status/2106341541547798757) | lucidiff: pull request in, interactive HTML explainer out, with an ASD-STE100-style summary, flow diagram, cited risks and test checklist | Scoped to pull requests. `/explain` works on any part of a codebase. |
 | [@alik_huseyn0v, 2026-10-02](https://x.com/alik_huseyn0v/status/2105989790017454106) | [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill) | Writing style only. |
 | [@Chrls_Hwrd, 2026-10-02](https://x.com/Chrls_Hwrd/status/2106036295415836994) | `asd-ste100-writing` skill in webrenew/skills | Writing style only. |
-| [@FavioVaz, 2026-10-03](https://x.com/FavioVaz/status/2106245948502319366) | [showtime](https://github.com/FavioVazquez/showtime): local video studio for coding agents (Manim, local voice, no API keys) | Video. We point to it instead of building a video mode. |
+| [@FavioVaz, 2026-10-03](https://x.com/FavioVaz/status/2106245948502319366) | [showtime](https://github.com/FavioVazquez/showtime): local video studio for coding agents (Manim, local voice, no API keys) | Video. `/explain video` renders with it. |
 
 ### Replies that shaped the design
 
@@ -143,6 +148,7 @@ Plugin olarak kurmak istemezsen `skills/explain/SKILL.md` dosyasını `~/.claude
 /explain <konu>              # varsayılan: sayfa
 /explain sayfa <konu>        # etkileşimli HTML sayfa
 /explain diyagram <konu>     # tek bir şema
+/explain video <konu>        # seslendirmeli açıklama videosu
 ```
 
 Örnek: `/explain hata bildirimi widget'tan GitHub'a nasıl gidiyor`
@@ -151,7 +157,11 @@ Plugin olarak kurulduğunda komut `/explain:explain` adıyla da görünebilir. "
 
 ### Video
 
-Video modu henüz yok. Seslendirmeli açıklayıcı video için [showtime](https://github.com/FavioVazquez/showtime) plugin'ini kurup Claude'dan doğrudan video isteyebilirsin. Yerel çalışır, API key istemez.
+`/explain video <konu>` aynı kod okumasından 60–90 saniyelik seslendirmeli bir video üretir. Bunun için [showtime](https://github.com/FavioVazquez/showtime) plugin'i gerekir. showtime yerel çalışır ve API anahtarı istemez. showtime kurulu değilse skill sayfa önerir.
+
+showtime'ın hazır seslerinde Türkçe yok. Türkçe seslendirme için skill [Antalia-2 Mini](https://huggingface.co/cloud0day3/antalia-mini) modelini kullanır. Model Apache-2.0 lisanslıdır, 7.6M parametrelidir, CPU'da çalışır ve tek bir yapay erkek sesi vardır. Kurulum: `uv tool install "antalia-mini[hub]"`. Model lisansı istediği için video, sesin yapay olduğunu belirtir.
+
+Video taranamaz. Bu yüzden skill, videonun söylediklerini kontrol etmen için iddia dosyasını da verir.
 
 ### Kaynaklar
 

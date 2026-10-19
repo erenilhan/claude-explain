@@ -1,6 +1,6 @@
 ---
 name: explain
-description: "Explain how something works as a published HTML page or diagram, grounded in the current project's own code, with every claim linked to file:line. Use when the user types /explain, or asks to understand or visualise how part of their codebase works ('how does this work', 'walk me through this flow', 'I forgot how this works', 'bu nasıl çalışıyor', 'bana anlat', 'akışı göster')."
+description: "Explain how something works as a published HTML page, diagram or narrated video, grounded in the current project's own code, with every claim linked to file:line. Use when the user types /explain, or asks to understand or visualise how part of their codebase works ('how does this work', 'walk me through this flow', 'I forgot how this works', 'bu nasıl çalışıyor', 'bana anlat', 'akışı göster')."
 trigger: /explain
 ---
 
@@ -16,6 +16,7 @@ Idea: Andrej Karpathy, 2026-10-02 (https://x.com/karpathy/status/210581930347197
 /explain <topic>                        # default: page
 /explain page <topic>                   # interactive HTML page   (TR: sayfa)
 /explain diagram <topic>                # one focused SVG diagram (TR: diyagram)
+/explain video <topic>                  # narrated explainer video, rendered locally (TR: video)
 ```
 
 `<topic>` is usually a part of the current project ("checkout flow", "how widget screenshots are uploaded"). If it has no relation to the codebase, explain it generally and skip step 1.
@@ -37,6 +38,22 @@ Idea: Andrej Karpathy, 2026-10-02 (https://x.com/karpathy/status/210581930347197
 
 4. **Publish** with the Artifact tool and give the user the link with a 1–2 sentence summary in chat. Do not repeat the page content in the terminal.
    - If the Artifact tool is not available (it depends on the account), write the page as a complete standalone HTML file (with `<!doctype html>`, `<head>`, `<body>`) to `~/explainers/<topic-slug>.html`, open it with `open` (macOS) or `xdg-open` (Linux), and give the user the path.
+
+## Video mode
+
+`video` replaces steps 2–4. Step 1 stays the same: read the code and collect every claim with its `path:line`.
+
+1. **Check the tools.** The video needs the showtime plugin (its `doctor` tool or `showtime doctor` must pass). If showtime is missing, say so, link https://github.com/FavioVazquez/showtime, and offer a `page` instead. For Turkish narration, also check `antalia-mini --help`. If it is missing, install it with `uv tool install "antalia-mini[hub]"` (or `pip install antalia-mini`).
+2. **Write the narration for the ear** in the user's language: 60–90 s, about 2.2 words per second, connected sentences, one concrete case. Do not read code names aloud. Show them on screen instead. Save it as `narration.txt` in the video's work folder, never in the project.
+3. **Make the voice.**
+   - Turkish: showtime's built-in voices have no Turkish, so use Antalia-2 Mini (Apache-2.0, local, single synthetic male voice).
+     1. Run `antalia-mini --normalize "$(cat narration.txt)"` and read how it will speak. Respell English and brand names the way a Turk says them (`Claude Code` → `Klod Kod`, `Hope Studio` → `Hop Stüdyo`).
+     2. Run `antalia-mini --seed 0 -o voice/vo.wav < narration.txt`.
+     3. Run `showtime voice align voice/vo.wav -f narration.txt -l tr -o voice/vo.words.json` for word timings.
+   - Other languages: use showtime's own voice (`voice_say` or `showtime voice script`).
+4. **Build and render with showtime.** Invoke the `showtime` skill and follow its `workflows/repo-explainer` guide. Give it the claims from step 1 as its `work/claims.md`, and the voice from step 3 as the finished narration.
+   - The end card credits the voice as synthetic (TR: "Ses: yapay, Antalia-2 Mini"). The model's licence asks for this.
+5. **Deliver** the video path and a 1–2 sentence summary. Also give the path of `claims.md`: a video cannot be scanned, so the claims file is how the user checks it.
 
 ## Writing rules
 
